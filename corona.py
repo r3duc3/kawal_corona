@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
 try:
-    import requests as req, os
+    import requests as req, os, time
+    from multiprocessing import Process as pro
 except Exception as ex:
     exit(f"Module '{ex.name}' belum terinstall")
 
@@ -12,12 +13,13 @@ commands = (
         'ls',
         'cls',
         'status',
-        'h', 'help'
+        'h', 'help',
+        'total'
         )
 
 def help():
     a, b = w[2], w[3]
-    print(f'\t{a}- q, exit\n\t{b}- h, help\n\t{a}- cls -> hapus screen\n\t{b}- ls -> list negara/provinsi\n\t{a}- status -> status corona')
+    print(f'\t{a}- q, exit\n\t{b}- h, help\n\t{a}- cls -> hapus screen\n\t{b}- ls -> list negara/provinsi\n\t{a}- status -> status corona\n\t{b}- total -> total kasus keseluruhan')
 
 def h(): help()
 
@@ -66,6 +68,30 @@ def cls():
      (_)-(_)
 api: '''+url)
 
+def total():
+    g = req.get(url).json()
+    positif = 0
+    sembuh = 0
+    mati = 0
+    for x in g:
+        data = x['attributes']
+        positif += data['Confirmed']
+        sembuh += data['Recovered']
+        mati += data['Deaths']
+        if data['Country_Region'] == 'Indonesia':
+            idih = g.index(x)
+    idn = g[idih]['attributes']
+    cls()
+    print(f'''Global:
+\tPositif: {positif}
+\tSembuh: {sembuh}
+\tMeninggal: {mati}
+Indonesia:
+\tPositif: {idn["Active"]}
+\tSembuh: {idn["Recovered"]}
+\tMeninggal: {idn["Deaths"]}''')
+
+total()
 def status():
     x,y,z = getter()
     a = input(f'{w[0]}Masukkan no urut {z}[1-{len(x)}]\n> ')
@@ -77,8 +103,8 @@ def status():
 \t{w[3]}terakhir update: {data["Last_Update"]}
 \t{w[2]}Garis lintang: {data["Lat"]}
 \t{w[3]}Garis Bujur: {data["Long_"]}
-\t{w[2]}Dikonfirmasi: {data["Confirmed"]}x
-\t{w[3]}Positif: {data["Active"]}
+\t{w[2]}Aktif: {data["Active"]}
+\t{w[3]}Positif: {data["Confirmed"]}
 \t{w[2]}Sembuh: {data["Recovered"]}
 \t{w[3]}Meninggal: {data["Deaths"]}''')
         elif z == 'provinsi':
