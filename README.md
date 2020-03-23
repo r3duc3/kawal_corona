@@ -13,3 +13,8 @@ git clone https://github.com/r3duc3/kawal_corona
 cd kawal_corona
 python3 corona.py
 ```
+
+## Requirements
+- python3
+- git
+- modul requests
