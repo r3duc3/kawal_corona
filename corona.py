@@ -2,7 +2,7 @@
 
 try:
     import requests as req, os, time
-    from multiprocessing import Process as pro
+
 except Exception as ex:
     exit(f"Module '{ex.name}' belum terinstall")
 
