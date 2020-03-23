@@ -82,14 +82,14 @@ def total():
             idih = g.index(x)
     idn = g[idih]['attributes']
     cls()
-    print(f'''Global:
-\tPositif: {positif:,d}
-\tSembuh: {sembuh:,d}
-\tMeninggal: {mati:,d}
-Indonesia:
-\tPositif: {idn["Confirmed"]:,d}
-\tSembuh: {idn["Recovered"]:,d}
-\tMeninggal: {idn["Deaths"]:,d}''')
+    print(f'''{w[5]}Global:
+\t{w[2]}Positif: {positif:,d}
+\t{w[3]}Sembuh: {sembuh:,d}
+\t{w[2]}Meninggal: {mati:,d}
+{w[5]}Indonesia:
+\t{w[2]}Positif: {idn["Confirmed"]:,d}
+\t{w[3]}Sembuh: {idn["Recovered"]:,d}
+\t{w[2]}Meninggal: {idn["Deaths"]:,d}''')
 
 total()
 def status():
