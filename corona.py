@@ -17,7 +17,7 @@ commands = (
 
 def help():
     a, b = w[2], w[3]
-    print(f'\t{a}- q, exit\n\t{b}- h, help\n\t{a}- cls -> hapus screen\n\t{b}- ls -> list negara\n\t{a}- status -> status corona')
+    print(f'\t{a}- q, exit\n\t{b}- h, help\n\t{a}- cls -> hapus screen\n\t{b}- ls -> list negara/provinsi\n\t{a}- status -> status corona')
 
 def h(): help()
 
