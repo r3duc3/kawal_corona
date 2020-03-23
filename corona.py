@@ -83,17 +83,18 @@ def total():
     idn = g[idih]['attributes']
     cls()
     print(f'''Global:
-\tPositif: {positif}
-\tSembuh: {sembuh}
-\tMeninggal: {mati}
+\tPositif: {positif:,d}
+\tSembuh: {sembuh:,d}
+\tMeninggal: {mati:,d}
 Indonesia:
-\tPositif: {idn["Active"]}
-\tSembuh: {idn["Recovered"]}
-\tMeninggal: {idn["Deaths"]}''')
+\tPositif: {idn["Active"]:,d}
+\tSembuh: {idn["Recovered"]:,d}
+\tMeninggal: {idn["Deaths"]:,d}''')
 
 total()
 def status():
     x,y,z = getter()
+    if x == None: return
     a = input(f'{w[0]}Masukkan no urut {z}[1-{len(x)}]\n> ')
     if a.isnumeric() and -1 < int(a)-1 < len(x):
         cls()
@@ -104,14 +105,14 @@ def status():
 \t{w[2]}Garis lintang: {data["Lat"]}
 \t{w[3]}Garis Bujur: {data["Long_"]}
 \t{w[2]}Aktif: {data["Active"]}
-\t{w[3]}Positif: {data["Confirmed"]}
-\t{w[2]}Sembuh: {data["Recovered"]}
-\t{w[3]}Meninggal: {data["Deaths"]}''')
+\t{w[3]}Positif: {data["Confirmed"]:,d}
+\t{w[2]}Sembuh: {data["Recovered"]:,d}
+\t{w[3]}Meninggal: {data["Deaths"]:,d}''')
         elif z == 'provinsi':
             print(f'''\t{w[2]}Nama {z}: {data["Provinsi"]}
-\t{w[3]}Positif: {data["Kasus_Posi"]}
-\t{w[2]}Sembuh: {data["Kasus_Semb"]}
-\t{w[3]}Meninggal: {data["Kasus_Meni"]}''')
+\t{w[3]}Positif: {data["Kasus_Posi"]:,d}
+\t{w[2]}Sembuh: {data["Kasus_Semb"]:,d}
+\t{w[3]}Meninggal: {data["Kasus_Meni"]:,d}''')
 
 cls()
 while True:
