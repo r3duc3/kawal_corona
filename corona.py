@@ -87,7 +87,7 @@ def total():
 \tSembuh: {sembuh:,d}
 \tMeninggal: {mati:,d}
 Indonesia:
-\tPositif: {idn["Active"]:,d}
+\tPositif: {idn["Confirmed"]:,d}
 \tSembuh: {idn["Recovered"]:,d}
 \tMeninggal: {idn["Deaths"]:,d}''')
 
