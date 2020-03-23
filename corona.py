@@ -50,8 +50,11 @@ def ls():
         return
 
 def cls():
-    os.system('clear')
-    print(w[1]+''' ______________
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
+    print(w[6]+''' ______________
 < Kawal corona >
  --------------
   \\
