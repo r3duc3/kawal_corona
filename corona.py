@@ -39,7 +39,7 @@ def ls():
     line = 1
     try:
         for y in a:
-            print(f'{w[3]}{a.index(y)+1}. {w[2]}{y["attributes"][b]}')
+            print(f'\t{w[3]}{a.index(y)+1}. {w[2]}{y["attributes"][b]}')
             line += 1
             if line == lines:
                 line = 1
