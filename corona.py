@@ -70,6 +70,7 @@ def status():
     x,y,z = getter()
     a = input(f'{w[0]}Masukkan no urut {z}[1-{len(x)}]\n> ')
     if a.isnumeric() and -1 < int(a)-1 < len(x):
+        cls()
         data = x[int(a)-1]['attributes']
         if z == 'negara':
             print(f'''\t{w[2]}Nama {z}: {data["Country_Region"]}
