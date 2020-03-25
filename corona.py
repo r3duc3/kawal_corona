@@ -91,7 +91,7 @@ def total():
 \t{w[3]}Sembuh: {idn["Recovered"]:,d}
 \t{w[2]}Meninggal: {idn["Deaths"]:,d}''')
 
-total()
+
 def status():
     x,y,z = getter()
     if x == None: return
