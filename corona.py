@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 try:
-    import requests as req, os, time
-
+    import requests as req, os, time, sys
+    from datetime import datetime as dt
 except Exception as ex:
     exit(f"Module '{ex.name}' belum terinstall")
 
@@ -15,6 +15,30 @@ commands = (
         'status',
         'h', 'help',
         'total'
+        )
+hari = (
+        'Senin',
+        'Selasa',
+        'Rabu',
+        'Kamis',
+        'Jumat',
+        'Sabtu',
+        'Minggu'
+        )
+
+bulan = (
+        'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
         )
 
 def help():
@@ -68,6 +92,12 @@ def cls():
      (_)-(_)
 api: '''+url)
 
+def output(x):
+    now = dt.now()
+    now = f'{hari[now.weekday()]}, {now.day} {bulan[now.month-1]} {now.year} {now.hour}:{now.minute}:{now.second}'
+    open('history.txt', 'a+').write(f'[{now}]\n{x}\n\n')
+    print(f'{w[0]}{x}\nTerakhir update: {now}\nsaved: history.txt')
+
 def total():
     g = req.get(url).json()
     positif = 0
@@ -82,15 +112,14 @@ def total():
             idih = g.index(x)
     idn = g[idih]['attributes']
     cls()
-    print(f'''{w[5]}Global:
-\t{w[2]}Positif: {positif:,d}
-\t{w[3]}Sembuh: {sembuh:,d}
-\t{w[2]}Meninggal: {mati:,d}
-{w[5]}Indonesia:
-\t{w[2]}Positif: {idn["Confirmed"]:,d}
-\t{w[3]}Sembuh: {idn["Recovered"]:,d}
-\t{w[2]}Meninggal: {idn["Deaths"]:,d}''')
-
+    output(f'''Global:
+\tPositif: {positif:,d}
+\tSembuh: {sembuh:,d}
+\tMeninggal: {mati:,d}
+Indonesia:
+\tPositif: {idn["Confirmed"]:,d}
+\tSembuh: {idn["Recovered"]:,d}
+\tMeninggal: {idn["Deaths"]:,d}''')
 
 def status():
     x,y,z = getter()
@@ -100,21 +129,22 @@ def status():
         cls()
         data = x[int(a)-1]['attributes']
         if z == 'negara':
-            print(f'''\t{w[2]}Nama {z}: {data["Country_Region"]}
-\t{w[3]}terakhir update: {data["Last_Update"]}
-\t{w[2]}Garis lintang: {data["Lat"]}
-\t{w[3]}Garis Bujur: {data["Long_"]}
-\t{w[2]}Aktif: {data["Active"]}
-\t{w[3]}Positif: {data["Confirmed"]:,d}
-\t{w[2]}Sembuh: {data["Recovered"]:,d}
-\t{w[3]}Meninggal: {data["Deaths"]:,d}''')
+            output(f'''Nama {z}: {data["Country_Region"]}
+terakhir update: {data["Last_Update"]}
+Garis lintang: {data["Lat"]}
+Garis Bujur: {data["Long_"]}
+Aktif: {data["Active"]}
+Positif: {data["Confirmed"]:,d}
+Sembuh: {data["Recovered"]:,d}
+Meninggal: {data["Deaths"]:,d}''')
         elif z == 'provinsi':
-            print(f'''\t{w[2]}Nama {z}: {data["Provinsi"]}
-\t{w[3]}Positif: {data["Kasus_Posi"]:,d}
-\t{w[2]}Sembuh: {data["Kasus_Semb"]:,d}
-\t{w[3]}Meninggal: {data["Kasus_Meni"]:,d}''')
+            output(f'''Nama {z}: {data["Provinsi"]}
+Positif: {data["Kasus_Posi"]:,d}
+Sembuh: {data["Kasus_Semb"]:,d}
+Meninggal: {data["Kasus_Meni"]:,d}''')
 
 cls()
+total()
 while True:
     cmd = input(w[0]+'$ ')
     if cmd in commands:
